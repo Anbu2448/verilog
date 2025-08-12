@@ -1,0 +1,17 @@
+module top_module (
+    input  [31:0] a,
+    input  [31:0] b,
+    output [31:0] sum,
+    output        cout
+);
+    wire        carry_lower;
+    wire [15:0] sum_c0, sum_c1;
+    wire        cout_c0, cout_c1;
+    
+    add16 lower (.a(a[15:0]), .b(b[15:0]), .cin(1'b0), .sum(sum[15:0]), .cout(carry_lower));
+    add16 upper_c0 (.a(a[31:16]), .b(b[31:16]), .cin(1'b0), .sum(sum_c0), .cout(cout_c0));
+    add16 upper_c1 (.a(a[31:16]), .b(b[31:16]), .cin(1'b1), .sum(sum_c1), .cout(cout_c1));
+    
+    assign sum[31:16] = carry_lower ? sum_c1  : sum_c0;
+    assign cout = carry_lower ? cout_c1 : cout_c0;
+endmodule
