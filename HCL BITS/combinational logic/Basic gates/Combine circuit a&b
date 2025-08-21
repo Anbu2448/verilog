@@ -1,0 +1,18 @@
+module top_module (input x, input y, output z);
+    wire a1, a2, b1, b2;
+    wire or_out, and_out;
+
+    // Subcircuit A expanded
+    assign a1 = (x ^ y) & x;
+    assign a2 = (x ^ y) & x;
+
+    // Subcircuit B expanded
+    assign b1 = ~(x ^ y);
+    assign b2 = ~(x ^ y);
+
+    // Combine outputs
+    assign or_out  = a1 | b1;
+    assign and_out = a2 & b2;
+    assign z       = or_out ^ and_out;  // final XOR
+endmodule
+
