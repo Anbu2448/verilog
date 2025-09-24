@@ -7,8 +7,7 @@ module top_module(
     output reg err
 );
 
-    reg [2:0] ones_count;  
-
+    reg [2:0] ones_count; 
     always @(posedge clk) begin
         if (reset) begin
             ones_count <= 3'd0;
@@ -16,24 +15,19 @@ module top_module(
             flag <= 1'b0;
             err  <= 1'b0;
         end
-        else begin
-           
+        else begin   
             disc <= 1'b0;
             flag <= 1'b0;
             err  <= 1'b0;
-
-            if (in) begin
-              
+            if (in) begin             
                 if (ones_count < 7)
                     ones_count <= ones_count + 1;
                 else
                     ones_count <= 7; 
-
                 if (ones_count >= 6)
                     err <= 1'b1;
             end
-            else begin
-           
+            else begin         
                 case (ones_count)
                     5: disc <= 1'b1;
                     6: flag <= 1'b1;   
